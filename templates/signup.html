@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Added */
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4caf50;
+            border: none;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        button[type="homepage"] {
+            margin-top: 10px;
+            padding: 8px 16px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="homepage"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Sign Up</h2>
+        <!-- <form method="POST" action="/signup"> -->
+        <form id="signupForm">
+            <label for="email">Email:</label>
+            <input type="text" name="email" id="email" required><br><br>
+
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required><br><br>
+
+            <label for="first_name">First Name:</label>
+            <input type="text" name="first_name" id="first_name" required><br><br>
+
+            <label for="middle_name">Middle Name:</label>
+            <input type="text" name="middle_name" id="middle_name"><br><br>
+
+            <label for="last_name">Last Name:</label>
+            <input type="text" name="last_name" id="last_name" required><br><br>
+
+            <label for="ssn">SSN:</label>
+            <input type="text" name="ssn" id="ssn"><br><br>
+
+            <label for="address_line_1">Address Line 1:</label>
+            <input type="text" name="address_line_1" id="address_line_1" required><br><br>
+
+            <label for="address_line_2">Address Line 2:</label>
+            <input type="text" name="address_line_2" id="address_line_2"><br><br>
+
+            <label for="city">City:</label>
+            <input type="text" name="city" id="city" required><br><br>
+
+            <label for="state">State:</label>
+            <input type="text" name="state" id="state" required><br><br>
+
+            <label for="zipcode">Zipcode:</label>
+            <input type="text" name="zipcode" id="zipcode" required><br><br>
+            
+            <input type="submit" value="Sign Up"><br><br>
+
+            <button type="homepage" onclick="homepage()">Homepage</button>
+        </form>
+
+    </div>
+
+    <script>
+        // JavaScript code to handle form submission as JSONs
+        const form = document.getElementById('signupForm');
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            // Convert form data to JSON object
+            const formData = new FormData(document.querySelector('.container form'));
+            const formDataJSON = {};
+            for (let [key, value] of formData.entries()) {
+                formDataJSON[key] = value;
+            }
+
+            // Send the form data as JSON using fetch API
+            fetch('/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formDataJSON)
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Handle the response from the API and display it
+                const responseMessageDiv = document.getElementById('responseMessage');
+                responseMessageDiv.textContent = JSON.stringify(data);
+            })
+            .catch(error => {
+                console.error(error);
+                // Handle error if any
+            });
+        });
+
+        // Homepage
+        function homepage() {
+            window.location.href = "http://localhost:3000";
+        }
+
+    </script>
+</body>
+</html>

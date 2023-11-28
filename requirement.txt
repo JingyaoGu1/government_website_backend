@@ -1,0 +1,8 @@
+flask
+python-dotenv
+python-jose
+flask-cors
+six
+Authlib
+auth0-python
+Flask-Session
